@@ -69,6 +69,12 @@
             border-radius: 5px;
         }
 
+        .tick {
+            color: white;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
         button {
             margin-top: 15px;
             padding: 12px;
@@ -83,12 +89,6 @@
         button:hover {
             background-color: #E68900;
         }
-
-        .tick {
-            color: white;
-            font-size: 24px;
-            margin-right: 10px;
-        }
     </style>
 </head>
 <body>
@@ -96,7 +96,7 @@
         <div class="alert" id="alertBox">Lütfen geçerli bilgiler girin!</div>
         <div class="success" id="successBox"><span class="tick">✔️</span>Ödeme Onaylandı!</div>
         <h2>600 TL Ödeme Sayfası</h2>
-        <form onsubmit="return validateForm()">
+        <form onsubmit="return validateForm(event)">
             <input type="hidden" id="package" value="600">
             
             <label>E-Posta</label>
@@ -127,7 +127,9 @@
     </div>
 
     <script>
-        function validateForm() {
+        function validateForm(e) {
+            e.preventDefault();  // Formun varsayılan gönderimini engelle
+
             let isValid = true;
             
             const email = document.getElementById("email").value;
@@ -161,3 +163,4 @@
     </script>
 </body>
 </html>
+
