@@ -112,11 +112,16 @@
         <h2>Ödeme Bilgilerinizi Girin</h2>
         <div class="package-info">600 TL Temel Paket</div>
         <form id="paymentForm" onsubmit="return validateForm()">
-            <!-- Paket bilgisi gizli alan olarak eklendi ve fiyat 600 TL yapıldı -->
             <input type="hidden" id="package" value="600">
 
             <label>Paket Dili Seçin</label>
             <select id="language">
+                <option value="tr">Türkçe</option>
+                <option value="en">English</option>
+            </select>
+
+            <label>Altyazı Dili Seçin</label>
+            <select id="subtitleLanguage">
                 <option value="tr">Türkçe</option>
                 <option value="en">English</option>
             </select>
@@ -155,7 +160,6 @@
         function validateForm() {
             let isValid = true;
 
-            const language = document.getElementById("language").value;
             const email = document.getElementById("email").value;
             const phone = document.getElementById("phone").value;
             const card = document.getElementById("card").value;
@@ -164,7 +168,6 @@
 
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            // E-posta doğrulama
             if (!emailPattern.test(email)) {
                 document.getElementById("emailError").style.display = "block";
                 isValid = false;
@@ -172,7 +175,6 @@
                 document.getElementById("emailError").style.display = "none";
             }
 
-            // Telefon numarası doğrulama
             const phonePattern = /^05\d{2} \d{3} \d{2} \d{2}$/;
             if (!phonePattern.test(phone)) {
                 document.getElementById("phoneError").style.display = "block";
@@ -181,7 +183,6 @@
                 document.getElementById("phoneError").style.display = "none";
             }
 
-            // Kart numarası doğrulama
             const cardPattern = /^\d{16}$/;
             if (!cardPattern.test(card)) {
                 document.getElementById("cardError").style.display = "block";
@@ -190,7 +191,6 @@
                 document.getElementById("cardError").style.display = "none";
             }
 
-            // Son kullanma tarihi doğrulama
             const expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
             if (!expiryPattern.test(expiry)) {
                 document.getElementById("expiryError").style.display = "block";
@@ -199,7 +199,6 @@
                 document.getElementById("expiryError").style.display = "none";
             }
 
-            // CVV doğrulama
             const cvvPattern = /^\d{3}$/;
             if (!cvvPattern.test(cvv)) {
                 document.getElementById("cvvError").style.display = "block";
