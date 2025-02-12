@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>600 TL Ödeme Sayfası</title>
+    <title>Ödeme Sayfası</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -69,12 +70,6 @@
             border-radius: 5px;
         }
 
-        .tick {
-            color: white;
-            font-size: 24px;
-            margin-right: 10px;
-        }
-
         button {
             margin-top: 15px;
             padding: 12px;
@@ -89,15 +84,28 @@
         button:hover {
             background-color: #E68900;
         }
+
+        .checkmark {
+            font-size: 24px;
+            color: white;
+            margin-left: 10px;
+        }
+
     </style>
 </head>
 <body>
     <div class="payment-container">
         <div class="alert" id="alertBox">Lütfen geçerli bilgiler girin!</div>
-        <div class="success" id="successBox"><span class="tick">✔️</span>Ödeme Onaylandı!</div>
-        <h2>600 TL Ödeme Sayfası</h2>
-        <form onsubmit="return validateForm(event)">
-            <input type="hidden" id="package" value="600">
+        <div class="success" id="successBox">
+            <span class="checkmark">✔️</span> Ödeme Başarıyla Tamamlandı!
+        </div>
+        <h2>Ödeme Bilgilerinizi Girin</h2>
+        <form onsubmit="return validateForm()">
+            <label>Paket Seçin</label>
+            <!-- 600 TL'lik paket burada belirtildi -->
+            <select id="package" disabled>
+                <option value="600">600 TL</option>
+            </select>
             
             <label>E-Posta</label>
             <input type="email" id="email" placeholder="example@mail.com" required>
@@ -127,9 +135,7 @@
     </div>
 
     <script>
-        function validateForm(e) {
-            e.preventDefault();  // Formun varsayılan gönderimini engelle
-
+        function validateForm() {
             let isValid = true;
             
             const email = document.getElementById("email").value;
@@ -152,14 +158,22 @@
             
             if (!emailPattern.test(email) || !phonePattern.test(phone) || !cardPattern.test(card) || !expiryPattern.test(expiry) || !cvvPattern.test(cvv)) {
                 document.getElementById("alertBox").style.display = "block";
-                document.getElementById("successBox").style.display = "none";
                 isValid = false;
             } else {
                 document.getElementById("alertBox").style.display = "none";
-                document.getElementById("successBox").style.display = "block";
             }
+
+            // Ödeme başarılı ise
+            if (isValid) {
+                document.getElementById("successBox").style.display = "block";  // Başarılı mesajı
+                setTimeout(() => {
+                    document.getElementById("successBox").style.display = "none";  // 3 saniye sonra mesajı gizle
+                }, 3000);
+            }
+
             return isValid;
         }
+
     </script>
 </body>
 </html>
