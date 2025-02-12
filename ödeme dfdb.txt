@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ödeme Sayfası</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .payment-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            width: 350px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #FF9800;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #E68900;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h2>Ödeme Bilgilerinizi Girin</h2>
+        <form>
+            <label>Kart Numarası</label>
+            <input type="text" placeholder="1234 5678 9101 1121" maxlength="16" required>
+
+            <label>Son Kullanma Tarihi</label>
+            <input type="text" placeholder="MM/YY" maxlength="5" required>
+
+            <label>CVV</label>
+            <input type="password" placeholder="123" maxlength="3" required>
+
+            <label>Ad Soyad</label>
+            <input type="text" placeholder="Kart Üzerindeki Ad Soyad" required>
+
+            <button type="submit">Ödemeyi Tamamla</button>
+        </form>
+    </div>
+</body>
+</html>
