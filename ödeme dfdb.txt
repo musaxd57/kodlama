@@ -44,6 +44,12 @@
             border-radius: 5px;
         }
 
+        .error {
+            color: red;
+            font-size: 14px;
+            display: none;
+        }
+
         button {
             margin-top: 15px;
             padding: 12px;
@@ -63,21 +69,61 @@
 <body>
     <div class="payment-container">
         <h2>Ödeme Bilgilerinizi Girin</h2>
-        <form>
+        <form onsubmit="return validateForm()">
+            <label>E-Posta</label>
+            <input type="email" id="email" placeholder="example@mail.com" required>
+            <span class="error" id="emailError">Geçerli bir e-posta girin.</span>
+            
+            <label>Telefon Numarası</label>
+            <input type="tel" id="phone" placeholder="05XX XXX XX XX" required>
+            <span class="error" id="phoneError">Geçerli bir telefon numarası girin.</span>
+
             <label>Kart Numarası</label>
-            <input type="text" placeholder="1234 5678 9101 1121" maxlength="16" required>
+            <input type="text" id="card" placeholder="1234 5678 9101 1121" maxlength="16" required>
+            <span class="error" id="cardError">Geçerli bir 16 haneli kart numarası girin.</span>
 
             <label>Son Kullanma Tarihi</label>
-            <input type="text" placeholder="MM/YY" maxlength="5" required>
+            <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" required>
+            <span class="error" id="expiryError">Geçerli bir son kullanma tarihi girin.</span>
 
             <label>CVV</label>
-            <input type="password" placeholder="123" maxlength="3" required>
+            <input type="password" id="cvv" placeholder="123" maxlength="3" required>
+            <span class="error" id="cvvError">Geçerli bir 3 haneli CVV girin.</span>
 
             <label>Ad Soyad</label>
-            <input type="text" placeholder="Kart Üzerindeki Ad Soyad" required>
+            <input type="text" id="name" placeholder="Kart Üzerindeki Ad Soyad" required>
 
             <button type="submit">Ödemeyi Tamamla</button>
         </form>
     </div>
+
+    <script>
+        function validateForm() {
+            let isValid = true;
+            
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+            const card = document.getElementById("card").value;
+            const expiry = document.getElementById("expiry").value;
+            const cvv = document.getElementById("cvv").value;
+            
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const phonePattern = /^05\d{9}$/;
+            const cardPattern = /^\d{16}$/;
+            const expiryPattern = /^(0[1-9]|1[0-2])\/(\d{2})$/;
+            const cvvPattern = /^\d{3}$/;
+
+            document.getElementById("emailError").style.display = emailPattern.test(email) ? "none" : "block";
+            document.getElementById("phoneError").style.display = phonePattern.test(phone) ? "none" : "block";
+            document.getElementById("cardError").style.display = cardPattern.test(card) ? "none" : "block";
+            document.getElementById("expiryError").style.display = expiryPattern.test(expiry) ? "none" : "block";
+            document.getElementById("cvvError").style.display = cvvPattern.test(cvv) ? "none" : "block";
+            
+            if (!emailPattern.test(email) || !phonePattern.test(phone) || !cardPattern.test(card) || !expiryPattern.test(expiry) || !cvvPattern.test(cvv)) {
+                isValid = false;
+            }
+            return isValid;
+        }
+    </script>
 </body>
 </html>
