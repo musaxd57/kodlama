@@ -96,8 +96,8 @@
                     document.getElementById("expiryError").innerText = "Ay, 01 ile 12 arasında olmalı.";
                     document.getElementById("expiryError").style.display = "block";
                     isValid = false;
-                } else if (parseInt(year) < currentYear % 100 || parseInt(year) > currentYear % 100 + 35) {
-                    document.getElementById("expiryError").innerText = "Yıl, mevcut yıldan 35 yıl daha ileri olmalı.";
+                } else if (parseInt(year) < currentYear % 100 || parseInt(year) > currentYear % 100 + 40) {
+                    document.getElementById("expiryError").innerText = "Yıl, mevcut yıldan 40 yıl daha ileri olmalı.";
                     document.getElementById("expiryError").style.display = "block";
                     isValid = false;
                 } else if (parseInt(year) == currentYear % 100 && parseInt(month) < currentMonth) {
