@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ödeme Sayfası</title>
+    <title>Ödeme Sayfası - 600 TL</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
@@ -14,7 +14,6 @@
             align-items: center;
             height: 100vh;
         }
-
         .payment-container {
             background: white;
             padding: 20px;
@@ -22,34 +21,28 @@
             box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
             width: 350px;
         }
-
         h2 {
             text-align: center;
         }
-
         form {
             display: flex;
             flex-direction: column;
         }
-
         label {
             margin-top: 10px;
             font-weight: bold;
         }
-
         input, select {
             padding: 10px;
             margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-
         .error {
             color: red;
             font-size: 14px;
             display: none;
         }
-
         .alert {
             display: none;
             color: white;
@@ -59,17 +52,6 @@
             margin-bottom: 10px;
             border-radius: 5px;
         }
-
-        .success {
-            display: none;
-            color: white;
-            background: green;
-            padding: 10px;
-            text-align: center;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-
         button {
             margin-top: 15px;
             padding: 12px;
@@ -80,29 +62,27 @@
             font-size: 18px;
             cursor: pointer;
         }
-
         button:hover {
             background-color: #E68900;
         }
-
-        .checkmark {
-            font-size: 24px;
-            color: white;
-            margin-left: 10px;
+        .success {
+            color: green;
+            text-align: center;
+            display: none;
         }
-
+        .success img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="payment-container">
         <div class="alert" id="alertBox">Lütfen geçerli bilgiler girin!</div>
-        <div class="success" id="successBox">
-            <span class="checkmark">✔️</span> Ödeme Başarıyla Tamamlandı!
-        </div>
-        <h2>Ödeme Bilgilerinizi Girin</h2>
-        <form onsubmit="return validateForm()">
+        <h2>600 TL'lik Ödeme Bilgilerinizi Girin</h2>
+        <form id="paymentForm">
             <label>Paket Seçin</label>
-            <!-- 600 TL'lik paket burada belirtildi -->
             <select id="package" disabled>
                 <option value="600">600 TL</option>
             </select>
@@ -132,9 +112,14 @@
 
             <button type="submit">Ödemeyi Tamamla</button>
         </form>
+        <div class="success" id="successMessage">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Checkmark.svg/1200px-Checkmark.svg.png" alt="Check Mark">
+            <span>Ödeme Başarılı!</span>
+        </div>
     </div>
 
     <script>
+        // Form doğrulama fonksiyonu
         function validateForm() {
             let isValid = true;
             
@@ -162,18 +147,18 @@
             } else {
                 document.getElementById("alertBox").style.display = "none";
             }
-
-            // Ödeme başarılı ise
-            if (isValid) {
-                document.getElementById("successBox").style.display = "block";  // Başarılı mesajı
-                setTimeout(() => {
-                    document.getElementById("successBox").style.display = "none";  // 3 saniye sonra mesajı gizle
-                }, 3000);
-            }
-
             return isValid;
         }
 
+        // Ödeme işlemi tamamlandığında gösterilecek mesaj
+        document.getElementById("paymentForm").onsubmit = function(event) {
+            event.preventDefault(); // Formun normal gönderilmesini engelle
+
+            if (validateForm()) {
+                // Başarı mesajı
+                document.getElementById("successMessage").style.display = "block";
+            }
+        };
     </script>
 </body>
 </html>
