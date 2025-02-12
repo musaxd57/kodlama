@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ödeme Sayfası - 600 TL Paket</title>
+    <title>Ödeme Sayfası - 600 TL Temel Paket</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -99,7 +99,7 @@
 <body>
 
     <div class="payment-container">
-        <h2>600 TL Temel Paket</h2>
+        <h2>600 TL Temel Paket</h2> <!-- Temel Paket başlığı eklendi -->
         <form id="paymentForm" onsubmit="return validateForm()">
             <label for="expiry">Son Kullanma Tarihi (MM/YY):</label>
             <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
