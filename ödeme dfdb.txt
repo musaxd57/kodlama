@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ödeme Sayfası</title>
+    <title>Ödeme Sayfası - 600 TL</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
@@ -37,7 +37,7 @@
             font-weight: bold;
         }
 
-        input {
+        input, select {
             padding: 10px;
             margin-top: 5px;
             border: 1px solid #ccc;
@@ -48,6 +48,16 @@
             color: red;
             font-size: 14px;
             display: none;
+        }
+
+        .alert {
+            display: none;
+            color: white;
+            background: red;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 10px;
+            border-radius: 5px;
         }
 
         button {
@@ -68,8 +78,14 @@
 </head>
 <body>
     <div class="payment-container">
+        <div class="alert" id="alertBox">Lütfen geçerli bilgiler girin!</div>
         <h2>Ödeme Bilgilerinizi Girin</h2>
         <form onsubmit="return validateForm()">
+            <label>Paket Seçin</label>
+            <select id="package" disabled>
+                <option value="600">600 TL</option>
+            </select>
+            
             <label>E-Posta</label>
             <input type="email" id="email" placeholder="example@mail.com" required>
             <span class="error" id="emailError">Geçerli bir e-posta girin.</span>
@@ -120,7 +136,10 @@
             document.getElementById("cvvError").style.display = cvvPattern.test(cvv) ? "none" : "block";
             
             if (!emailPattern.test(email) || !phonePattern.test(phone) || !cardPattern.test(card) || !expiryPattern.test(expiry) || !cvvPattern.test(cvv)) {
+                document.getElementById("alertBox").style.display = "block";
                 isValid = false;
+            } else {
+                document.getElementById("alertBox").style.display = "none";
             }
             return isValid;
         }
