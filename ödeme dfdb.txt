@@ -70,56 +70,42 @@
             text-align: center;
             display: none;
         }
-        .success img {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-        }
     </style>
 </head>
 <body>
     <div class="payment-container">
+        <h2>600 TL Ödeme</h2>
         <div class="alert" id="alertBox">Lütfen geçerli bilgiler girin!</div>
-        <h2>600 TL'lik Ödeme Bilgilerinizi Girin</h2>
-        <form id="paymentForm">
-            <label>Paket Seçin</label>
-            <select id="package" disabled>
-                <option value="600">600 TL</option>
-            </select>
-            
-            <label>E-Posta</label>
+        <form onsubmit="return validateForm()">
+            <label for="email">E-Posta</label>
             <input type="email" id="email" placeholder="example@mail.com" required>
             <span class="error" id="emailError">Geçerli bir e-posta girin.</span>
-            
-            <label>Telefon Numarası</label>
+
+            <label for="phone">Telefon Numarası</label>
             <input type="tel" id="phone" placeholder="05XX XXX XX XX" required>
             <span class="error" id="phoneError">Geçerli bir telefon numarası girin.</span>
 
-            <label>Kart Numarası</label>
+            <label for="card">Kart Numarası</label>
             <input type="text" id="card" placeholder="1234 5678 9101 1121" maxlength="16" required>
             <span class="error" id="cardError">Geçerli bir 16 haneli kart numarası girin.</span>
 
-            <label>Son Kullanma Tarihi</label>
+            <label for="expiry">Son Kullanma Tarihi</label>
             <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" required>
             <span class="error" id="expiryError">Geçerli bir son kullanma tarihi girin.</span>
 
-            <label>CVV</label>
+            <label for="cvv">CVV</label>
             <input type="password" id="cvv" placeholder="123" maxlength="3" required>
             <span class="error" id="cvvError">Geçerli bir 3 haneli CVV girin.</span>
 
-            <label>Ad Soyad</label>
+            <label for="name">Ad Soyad</label>
             <input type="text" id="name" placeholder="Kart Üzerindeki Ad Soyad" required>
 
             <button type="submit">Ödemeyi Tamamla</button>
         </form>
-        <div class="success" id="successMessage">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Checkmark.svg/1200px-Checkmark.svg.png" alt="Check Mark">
-            <span>Ödeme Başarılı!</span>
-        </div>
+        <div class="success" id="successMessage">Ödeme Başarılı! <span>&#x2705;</span></div>
     </div>
 
     <script>
-        // Form doğrulama fonksiyonu
         function validateForm() {
             let isValid = true;
             
@@ -147,18 +133,14 @@
             } else {
                 document.getElementById("alertBox").style.display = "none";
             }
-            return isValid;
-        }
 
-        // Ödeme işlemi tamamlandığında gösterilecek mesaj
-        document.getElementById("paymentForm").onsubmit = function(event) {
-            event.preventDefault(); // Formun normal gönderilmesini engelle
-
-            if (validateForm()) {
-                // Başarı mesajı
+            // Ödeme başarılı olduğunda başarı mesajını göster
+            if (isValid) {
                 document.getElementById("successMessage").style.display = "block";
             }
-        };
+
+            return isValid;
+        }
     </script>
 </body>
 </html>
