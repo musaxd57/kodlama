@@ -112,13 +112,9 @@
         <h2>Ödeme Bilgilerinizi Girin</h2>
         <div class="package-info">600 TL Temel Paket</div> <!-- Paket açıklaması eklendi -->
         <form id="paymentForm" onsubmit="return validateForm()">
-            <label>Paket Seçin</label>
-            <select id="package">
-                <option value="600" selected>600 TL Temel Paket</option> <!-- Paket seçeneği varsayılan olarak 600 TL olacak -->
-                <option value="800">800 TL</option>
-                <option value="1000">1000 TL</option>
-            </select>
-            
+            <!-- Paket seçimi kaldırıldı, sabit 600 TL Temel Paket -->
+            <input type="hidden" id="package" value="600"> <!-- Paket bilgisi gizli alan olarak eklendi -->
+
             <label>E-Posta</label>
             <input type="email" id="email" placeholder="example@mail.com" required>
             <span class="error" id="emailError">Geçerli bir e-posta girin.</span>
