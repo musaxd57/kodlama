@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ödeme Sayfası (Temel Paket 600 TL)</title>
+    <title>Ödeme Sayfası - 600 TL Paket</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,7 +13,6 @@
             align-items: center;
             height: 100vh;
         }
-
         .payment-container {
             background: white;
             padding: 20px;
@@ -21,34 +20,28 @@
             box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
             width: 350px;
         }
-
         h2 {
             text-align: center;
         }
-
         form {
             display: flex;
             flex-direction: column;
         }
-
         label {
             margin-top: 10px;
             font-weight: bold;
         }
-
         input, select {
             padding: 10px;
             margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-
         .error {
             color: red;
             font-size: 14px;
             display: none;
         }
-
         .alert {
             display: none;
             color: white;
@@ -58,7 +51,6 @@
             margin-bottom: 10px;
             border-radius: 5px;
         }
-
         button {
             margin-top: 15px;
             padding: 12px;
@@ -69,85 +61,65 @@
             font-size: 18px;
             cursor: pointer;
         }
-
         button:hover {
             background-color: #E68900;
-        }
-
-        .success {
-            color: green;
-            text-align: center;
-            font-weight: bold;
-            display: none;
         }
     </style>
 </head>
 <body>
+
     <div class="payment-container">
-        <div class="alert" id="alertBox">Lütfen geçerli bilgiler girin!</div>
-        <h2>Ödeme Bilgilerinizi Girin (Temel Paket 600 TL)</h2>
-        <form onsubmit="return validateForm()">
-            <label>Paket Seçimi: Temel Paket (600 TL)</label>
+        <h2>600 TL Temel Paket</h2>
+        <form id="paymentForm" onsubmit="return validateForm()">
+            <label for="expiry">Son Kullanma Tarihi (MM/YY):</label>
+            <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+            <div class="error" id="expiryError"></div>
 
-            <label>E-Posta</label>
-            <input type="email" id="email" placeholder="example@mail.com" required>
-            <span class="error" id="emailError">Geçerli bir e-posta girin.</span>
-
-            <label>Telefon Numarası</label>
-            <input type="tel" id="phone" placeholder="05XX XXX XX XX" required>
-            <span class="error" id="phoneError">Geçerli bir telefon numarası girin.</span>
-
-            <label>Kart Numarası</label>
-            <input type="text" id="card" placeholder="1234 5678 9101 1121" maxlength="16" required>
-            <span class="error" id="cardError">Geçerli bir 16 haneli kart numarası girin.</span>
-
-            <label>Son Kullanma Tarihi</label>
-            <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" required>
-            <span class="error" id="expiryError">Geçerli bir son kullanma tarihi girin.</span>
-
-            <label>CVV</label>
-            <input type="password" id="cvv" placeholder="123" maxlength="3" required>
-            <span class="error" id="cvvError">Geçerli bir 3 haneli CVV girin.</span>
-
-            <label>Ad Soyad</label>
-            <input type="text" id="name" placeholder="Kart Üzerindeki Ad Soyad" required>
-
+            <div class="alert" id="successAlert">Ödeme Başarılı!</div>
             <button type="submit">Ödemeyi Tamamla</button>
-            <div class="success" id="successMessage">Ödeme Başarılı! ✔️</div>
         </form>
     </div>
 
     <script>
         function validateForm() {
             let isValid = true;
+            const expiry = document.getElementById("expiry").value.trim();
+            const expiryPattern = /^(0[1-9]|1[0-2])\/(\d{2})$/; // MM/YY format
+            const [month, year] = expiry.split('/');  // MM ve YY'yi ayırıyoruz
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth() + 1; // Aylar 0-11 arasında, bu yüzden +1 ekliyoruz
+            const currentYear = currentDate.getFullYear(); // Tam yıl alıyoruz (2025 gibi)
             
-            const email = document.getElementById("email").value;
-            const phone = document.getElementById("phone").value;
-            const card = document.getElementById("card").value;
-            const expiry = document.getElementById("expiry").value;
-            const cvv = document.getElementById("cvv").value;
-            
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const phonePattern = /^05\d{9}$/;
-            const cardPattern = /^\d{16}$/;
-            const expiryPattern = /^(0[1-9]|1[0-2])\/(\d{2})$/;
-            const cvvPattern = /^\d{3}$/;
-
-            document.getElementById("emailError").style.display = emailPattern.test(email) ? "none" : "block";
-            document.getElementById("phoneError").style.display = phonePattern.test(phone) ? "none" : "block";
-            document.getElementById("cardError").style.display = cardPattern.test(card) ? "none" : "block";
-            document.getElementById("expiryError").style.display = expiryPattern.test(expiry) ? "none" : "block";
-            document.getElementById("cvvError").style.display = cvvPattern.test(cvv) ? "none" : "block";
-            
-            if (!emailPattern.test(email) || !phonePattern.test(phone) || !cardPattern.test(card) || !expiryPattern.test(expiry) || !cvvPattern.test(cvv)) {
-                document.getElementById("alertBox").style.display = "block";
-                isValid = false;
+            // Son Kullanma Tarihi Kontrolü
+            if (expiryPattern.test(expiry)) {
+                if (parseInt(month) < 1 || parseInt(month) > 12) {
+                    document.getElementById("expiryError").innerText = "Ay, 01 ile 12 arasında olmalı.";
+                    document.getElementById("expiryError").style.display = "block";
+                    isValid = false;
+                } else if (parseInt(year) < currentYear % 100 || parseInt(year) > currentYear % 100 + 35) {
+                    document.getElementById("expiryError").innerText = "Yıl, mevcut yıldan 35 yıl daha ileri olmalı.";
+                    document.getElementById("expiryError").style.display = "block";
+                    isValid = false;
+                } else if (parseInt(year) == currentYear % 100 && parseInt(month) < currentMonth) {
+                    document.getElementById("expiryError").innerText = "Son kullanma tarihi geçerli değil.";
+                    document.getElementById("expiryError").style.display = "block";
+                    isValid = false;
+                } else {
+                    document.getElementById("expiryError").style.display = "none";
+                }
             } else {
-                document.getElementById("alertBox").style.display = "none";
-                document.getElementById("successMessage").style.display = "block"; // Success message shown
+                document.getElementById("expiryError").innerText = "Geçerli bir tarih girin (MM/YY).";
+                document.getElementById("expiryError").style.display = "block";
+                isValid = false;
             }
+
+            if (isValid) {
+                document.getElementById("successAlert").style.display = "block";
+            }
+
             return isValid;
         }
     </script>
+
 </body>
 </html>
