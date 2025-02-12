@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ödeme Sayfası</title>
+    <title>Ödeme Sayfası - Temel Paket</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
@@ -14,6 +14,7 @@
             align-items: center;
             height: 100vh;
         }
+
         .payment-container {
             background: white;
             padding: 20px;
@@ -21,28 +22,34 @@
             box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
             width: 350px;
         }
+
         h2 {
             text-align: center;
         }
+
         form {
             display: flex;
             flex-direction: column;
         }
+
         label {
             margin-top: 10px;
             font-weight: bold;
         }
+
         input, select {
             padding: 10px;
             margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+
         .error {
             color: red;
             font-size: 14px;
             display: none;
         }
+
         .alert {
             display: none;
             color: white;
@@ -52,6 +59,7 @@
             margin-bottom: 10px;
             border-radius: 5px;
         }
+
         button {
             margin-top: 15px;
             padding: 12px;
@@ -62,28 +70,24 @@
             font-size: 18px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #E68900;
         }
+
         .success {
-            color: white;
-            background: green;
-            padding: 10px;
-            text-align: center;
-            border-radius: 5px;
             display: none;
+            color: green;
+            font-weight: bold;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="payment-container">
+        <h2>Temel Paket - 600 TL</h2>
         <div class="alert" id="alertBox">Lütfen geçerli bilgiler girin!</div>
-        <div class="success" id="successBox">Ödeme Onaylandı! ✔️</div>
-        <h2>Ödeme Bilgilerinizi Girin (600 TL)</h2>
         <form onsubmit="return validateForm()">
-            <!-- Paket Seçimi Sabit 600 TL Olarak Belirlendi -->
-            <input type="hidden" id="package" value="600">
-
             <label>E-Posta</label>
             <input type="email" id="email" placeholder="example@mail.com" required>
             <span class="error" id="emailError">Geçerli bir e-posta girin.</span>
@@ -109,6 +113,10 @@
 
             <button type="submit">Ödemeyi Tamamla</button>
         </form>
+
+        <div class="success" id="successMessage">
+            <span>&#10004; Ödeme Başarılı</span>
+        </div>
     </div>
 
     <script>
@@ -141,9 +149,9 @@
             }
 
             if (isValid) {
-                document.getElementById("successBox").style.display = "block"; // Success message
+                document.getElementById("successMessage").style.display = "block";
             }
-            
+
             return isValid;
         }
     </script>
