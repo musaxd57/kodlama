@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ödeme Sayfası - 600 TL Temel Paket</title>
+    <title>Ödeme Sayfası - 800 TL Standart Paket</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
@@ -119,4 +119,5 @@
     </div>
 </body>
 </html>
+
 
