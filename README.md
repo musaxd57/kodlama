@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ödeme Sayfası - Temel Paket</title>
+    <title>Ödeme Sayfası - 600 TL Temel Paket</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
@@ -81,50 +81,15 @@
         button:hover {
             background-color: #E68900;
         }
-
-        .loading-spinner {
-            display: none;
-            margin-top: 20px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 2s linear infinite;
-        }
-
-        .success-check {
-            display: none;
-            font-size: 50px;
-            color: green;
-            margin: 20px 0;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
     </style>
 </head>
 <body>
     <div class="payment-container">
         <div class="alert" id="alertBox">Lütfen geçerli bilgiler girin!</div>
         <h2>Ödeme Bilgilerinizi Girin</h2>
-        <div class="package-info">600 TL Temel Paket</div>
+        <div class="package-info">800 TL Standart Paket</div>
         <form id="paymentForm" onsubmit="return validateForm()">
-            <input type="hidden" id="package" value="600">
-
-            <label>Paket Dili Seçin</label>
-            <select id="language">
-                <option value="tr">Türkçe</option>
-                <option value="en">English</option>
-            </select>
-
-            <label>Altyazı Dili Seçin</label>
-            <select id="subtitleLanguage">
-                <option value="tr">Türkçe</option>
-                <option value="en">English</option>
-            </select>
+            <input type="hidden" id="package" value="800">
 
             <label>E-Posta</label>
             <input type="email" id="email" placeholder="example@mail.com" required>
@@ -151,64 +116,7 @@
 
             <button type="submit">Ödemeyi Tamamla</button>
         </form>
-
-        <div class="loading-spinner" id="loadingSpinner"></div>
-        <div class="success-check" id="successCheck">&#10004;</div>
     </div>
-
-    <script>
-        function validateForm() {
-            let isValid = true;
-
-            const email = document.getElementById("email").value;
-            const phone = document.getElementById("phone").value;
-            const card = document.getElementById("card").value;
-            const expiry = document.getElementById("expiry").value;
-            const cvv = document.getElementById("cvv").value;
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if (!emailPattern.test(email)) {
-                document.getElementById("emailError").style.display = "block";
-                isValid = false;
-            } else {
-                document.getElementById("emailError").style.display = "none";
-            }
-
-            const phonePattern = /^05\d{2} \d{3} \d{2} \d{2}$/;
-            if (!phonePattern.test(phone)) {
-                document.getElementById("phoneError").style.display = "block";
-                isValid = false;
-            } else {
-                document.getElementById("phoneError").style.display = "none";
-            }
-
-            const cardPattern = /^\d{16}$/;
-            if (!cardPattern.test(card)) {
-                document.getElementById("cardError").style.display = "block";
-                isValid = false;
-            } else {
-                document.getElementById("cardError").style.display = "none";
-            }
-
-            const expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
-            if (!expiryPattern.test(expiry)) {
-                document.getElementById("expiryError").style.display = "block";
-                isValid = false;
-            } else {
-                document.getElementById("expiryError").style.display = "none";
-            }
-
-            const cvvPattern = /^\d{3}$/;
-            if (!cvvPattern.test(cvv)) {
-                document.getElementById("cvvError").style.display = "block";
-                isValid = false;
-            } else {
-                document.getElementById("cvvError").style.display = "none";
-            }
-
-            return isValid;
-        }
-    </script>
 </body>
 </html>
+
